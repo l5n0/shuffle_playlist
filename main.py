@@ -27,7 +27,7 @@ def setup_spotify():
     redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI', 'http://127.0.0.1:8888/callback')
     
     if not client_id or not client_secret:
-        print("❌ ERROR: Missing Spotify API credentials!")
+        print("ERROR: Missing Spotify API credentials!")
         print("Set SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI")
         exit(1)
     
@@ -43,7 +43,7 @@ def setup_spotify():
         sp.current_user()
         return sp
     except Exception as e:
-        print(f"❌ Auth failed: {e}")
+        print(f"Auth failed: {e}")
         exit(1)
 
 def get_playlist_tracks(sp, playlist_id):
@@ -59,11 +59,11 @@ def get_playlist_tracks(sp, playlist_id):
 
 def mega_shuffle(sp, playlist_id, n_tracks, passes=5):
     """Industrial-strength shuffle: Multiple full passes for 10K+ tracks."""
-    print(f"🎲 INDUSTRIAL SHUFFLE: {n_tracks} tracks, {passes} passes")
+    print(f"INDUSTRIAL SHUFFLE: {n_tracks} tracks, {passes} passes")
     total_moves = 0
     
     for pass_num in range(1, passes + 1):
-        print(f"\n🔄 PASS {pass_num}/{passes} ({n_tracks} tracks)...")
+        print(f"\nPASS {pass_num}/{passes} ({n_tracks} tracks)...")
         moves = 0
         
         # Forward pass: Move random track to front
@@ -84,13 +84,13 @@ def mega_shuffle(sp, playlist_id, n_tracks, passes=5):
                 time.sleep(0.15)  # Rate limit
                 
             except Exception as e:
-                print(f"   ⚠️ Move {i+1} failed: {str(e)[:40]}")
+                print(f"Move {i+1} failed: {str(e)[:40]}")
                 continue
         
-        print(f"✅ Pass {pass_num}: {moves} moves complete")
+        print(f"Pass {pass_num}: {moves} moves complete")
         time.sleep(1)  # Pass cooldown
     
-    print(f"\n🏭 MEGA SHUFFLE COMPLETE: {total_moves} TOTAL MOVES!")
+    print(f"\nMEGA SHUFFLE COMPLETE: {total_moves} TOTAL MOVES!")
     return total_moves
 
 def main():
@@ -103,31 +103,31 @@ def main():
     if seed_input:
         random.seed(int(seed_input))
     
-    print("🔍 Authenticating...")
+    print("Authenticating...")
     sp = setup_spotify()
-    print("✅ Spotify authenticated!")
+    print("Spotify authenticated!")
     
-    print("📥 Fetching playlist...")
+    print("Fetching playlist...")
     playlist_info = sp.playlist(playlist_id)
-    print(f"🔄 Target: {playlist_info['name']} ({len(playlist_info['tracks']['items'])} tracks)")
+    print(f"Target: {playlist_info['name']} ({len(playlist_info['tracks']['items'])} tracks)")
     
     tracks = get_playlist_tracks(sp, playlist_id)
-    print(f"✅ {len(tracks)} valid tracks ready")
+    print(f"{len(tracks)} valid tracks ready")
     
     if len(tracks) == 0:
-        print("❌ No tracks!")
+        print("No tracks!")
         return
     
     # Auto-select passes based on size
     passes = max(3, min(10, len(tracks) // 100 + 3))
-    confirm = input(f"🚀 Shuffle with {passes} passes? (y/n): ").lower()
+    confirm = input(f"Shuffle with {passes} passes? (y/n): ").lower()
     if confirm != 'y':
         return
     
-    print("💥 Starting MEGA SHUFFLE...")
+    print("Starting MEGA SHUFFLE...")
     total_moves = mega_shuffle(sp, playlist_id, len(tracks), passes)
     
-    print("\n🎉 MEGA SHUFFLE FINISHED!")
+    print("\nMEGA SHUFFLE FINISHED!")
     print(f"- Playlist: {playlist_info['name']}")
     print(f"- Tracks: {len(tracks):,}")
     print(f"- Total Moves: {total_moves:,}")

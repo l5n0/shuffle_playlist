@@ -15,7 +15,7 @@ class PlaylistHandler:
         
         playlist_id = extract_playlist_id(playlist_input)
         metadata = self.client.get_playlist_metadata(playlist_id)
-        print(f"🔄 Shuffling: {metadata['name']} ({len(playlist_input)} chars)")
+        print(f"Shuffling: {metadata['name']} ({len(playlist_input)} chars)")
         
         # Get current order
         items = self.client.get_playlist_items(playlist_id)
@@ -25,7 +25,7 @@ class PlaylistHandler:
             raise ValueError("No valid tracks found")
         
         num_tracks = len(valid_tracks)
-        print(f"🎲 Shuffling {num_tracks} tracks")
+        print(f"Shuffling {num_tracks} tracks")
         
         # Create target shuffle order
         shuffle_order = list(range(num_tracks))
@@ -37,17 +37,17 @@ class PlaylistHandler:
             if new_pos != old_pos:
                 moves.append((old_pos, new_pos))
         
-        print(f"🔀 {len(moves)} moves required")
+        print(f"{len(moves)} moves required")
         self._execute_shuffles(playlist_id, moves)
         
-        print(f"✅ Perfect shuffle complete!")
+        print(f"Perfect shuffle complete!")
         print(f"📱 {metadata['external_urls']['spotify']}")
         
         return metadata, num_tracks, 0, 0
     
     def _execute_shuffles(self, playlist_id: str, moves: List[tuple]) -> None:
         """Execute shuffle moves with rate limiting."""
-        print("🔀 Executing reorders...")
+        print("Executing reorders...")
         for i, (from_pos, to_pos) in enumerate(moves, 1):
             try:
                 self.client.move_track(playlist_id, from_pos, to_pos)
@@ -55,7 +55,7 @@ class PlaylistHandler:
                     print(f"   {i}/{len(moves)} moves complete")
                 time.sleep(0.1)  # Rate limit
             except Exception as e:
-                print(f"   ⚠️  Move {i} failed: {e}")
+                print(f"Move {i} failed: {e}")
     
     def _extract_valid_tracks(self, items: list) -> list:
         """Extract valid tracks only."""
@@ -64,5 +64,5 @@ class PlaylistHandler:
             track = item.get("track")
             if track and not track.get("is_local") and track.get("uri"):
                 valid_tracks.append(track["uri"])
-        print(f"🔧 {len(valid_tracks)} valid tracks ready")
+        print(f"{len(valid_tracks)} valid tracks ready")
         return valid_tracks

@@ -3,13 +3,13 @@
 **Shuffle any Spotify playlist with one click!** Creates a perfectly randomized copy while preserving duplicates.
 
 ## ✨ Features
-- ✅ Handles playlists of **any size** (pagination)
-- ✅ Skips local files automatically
-- ✅ Preserves **exact duplicate order**
-- ✅ Configurable via `.env`
-- ✅ Token caching (no repeated logins)
+- Handles playlists of **any size** (pagination)
+- Skips local files automatically
+- Preserves **exact duplicate order**
+- Configurable via `.env`
+- Token caching (no repeated logins)
 
-## 🛠️ Quick Setup (2 minutes)
+## Quick Setup (2 minutes)
 
 ### 1. Get Spotify App Credentials
 1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
@@ -43,14 +43,14 @@ python main.py
 - Authorize the app
 - **Token saved** → No more logins needed!
 
-## 🚀 Usage
+## Usage
 ```
 === Spotify Playlist Shuffler ===
 Playlist URL or ID: https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
 Optional seed (Enter = random):
 
 Loading playlist...
-✅ Done!
+Done!
 New Playlist: Today's Top Hits (Shuffled 2025-12-04 18:30)
 Items Added: 124
 Skipped (local): 0
@@ -72,14 +72,14 @@ BATCH_SIZE=100
 ```
 
 
-## 📁 Project Structure
+## Project Structure
 ```
 shuffle_playlist/
-├── main.py # 🚪 Entry point
-├── requirements.txt # 📦 Dependencies
+├── main.py # Entry point
+├── requirements.txt # Dependencies
 ├── .env.example # 📋 Config template
-├── .env # 🔑 Your secrets
-└── src/ # 🏗️ Source code
+├── .env # Your secrets
+└── src/ # Source code
 ├── init.py
 ├── config.py
 ├── utils.py
@@ -88,7 +88,7 @@ shuffle_playlist/
 ```
 
 
-## 🐛 Troubleshooting
+## Troubleshooting
 ```
 | Problem | Solution |
 |---------|----------|
@@ -97,7 +97,7 @@ shuffle_playlist/
 | Browser not opening | Login manually at the shown URL |
 | `ModuleNotFoundError` | Run `pip install -r requirements.txt` |
 ```
-## 🙌 Advanced Usage
+## Advanced Usage
 
 **Same shuffle every time:**
 ```
@@ -111,12 +111,7 @@ Enter seed: 42
 BATCH_SIZE=50 # For huge playlists
 ```
 
-
-## 📄 License
-MIT - Use it anywhere!
-
-## ❤️ Made With
+## Made With
 - [Spotipy](https://spotipy.readthedocs.io/) - Spotify API
 - [Python-dotenv](https://pypi.org/project/python-dotenv/) - Config management
 
-**Questions?** Open an issue or ping me! 🎉

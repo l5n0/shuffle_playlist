@@ -7,9 +7,9 @@ import datetime as dt
 
 class SpotifyClient:
     def __init__(self):
-        print("🔍 Authenticating with Spotify...")
+        print("Authenticating with Spotify...")
         self.sp = self._authenticate()
-        print("✅ Spotify authenticated!")
+        print("Spotify authenticated!")
     
     def _authenticate(self) -> spotipy.Spotify:
         """Create authenticated Spotify client."""
@@ -25,7 +25,7 @@ class SpotifyClient:
     
     def get_playlist_items(self, playlist_id: str) -> list:
         """Fetch all items from playlist with pagination."""
-        print(f"📥 Fetching playlist items...")
+        print(f"Fetching playlist items...")
         items = []
         offset = 0
         
@@ -41,7 +41,7 @@ class SpotifyClient:
                 break
             offset += len(page["items"])
         
-        print(f"✅ Found {len(items)} total items")
+        print(f"Found {len(items)} total items")
         return items
     
     def get_playlist_metadata(self, playlist_id: str) -> dict:
@@ -53,7 +53,7 @@ class SpotifyClient:
     
     def move_track(self, playlist_id: str, from_pos: int, to_pos: int) -> str:
         """Move single track from from_pos to to_pos (FIXED)."""
-        print(f"   🔄 {from_pos} → {to_pos}", end=" ")
+        print(f"{from_pos} → {to_pos}", end=" ")
         
         # Spotify API: range_start + insert_before/insert_after
         if to_pos < from_pos:
@@ -68,7 +68,7 @@ class SpotifyClient:
                 range_start=from_pos,
                 insert_after=to_pos
             )
-        print("✅")
+        print("Good")
         return result['snapshot_id']
     
     def get_current_user(self) -> dict:
